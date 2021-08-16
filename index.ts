@@ -1,12 +1,21 @@
 // Import stylesheets
 import './style.css';
 import { Cookie } from './models/Cookie';
+import { Colours } from './models/CookieEnums';
 
-const cookies: Cookie[] = []
+const cookies: Cookie[] = [];
+// connect ts to html input
+const sprinkleCookie = document.getElementById(
+  'sprinkleCookie'
+) as HTMLButtonElement;
 
-const cookieColourInp = document.getElementById('cookieColour-inp') as HTMLInputElement;
-const cookieSelector = document.getElementById('cookieSelector') as HTMLSelectElement;
-const cookieDiv = document.getElementById('cookiesDiv');
+const cookieColourInp = document.getElementById(
+  'cookieColour-inp'
+) as HTMLInputElement;
+const cookieSelector = document.getElementById(
+  'cookieSelector'
+) as HTMLSelectElement;
+const cookiesDiv = document.getElementById('cookiesDiv');
 
 const changeColourBtn = document.getElementById('changeColour-btn');
 changeColourBtn.addEventListener('click', changeColour);
@@ -16,33 +25,31 @@ addChocChip.addEventListener('click', addChocolateChip);
 
 // create an init() function
 function init() {
-// Two cookies added 
-const cookie1: Cookie = new Cookie("Cookie1");
-const cookie2: Cookie = new Cookie("Cookie2");
-cookies.push(cookie1); 
-cookies.push(cookie2);
-// initialise the cookieColour-inp to the colour of the first cookie create
-for (let i = 0; i <= Cookie.length; i++) {
-  cookieSelector.innerHTML += `<option value=${i}>${cookies[i].name}</option>`;
-}
-updateDisplay();
+  // Two cookies added
+  const cookie1: Cookie = new Cookie('Cookie1');
+  const cookie2: Cookie = new Cookie('Cookie2');
+  cookies.push(cookie1);
+  cookies.push(cookie2);
+  // initialise the cookieColour-inp to the colour of the first cookie create
+  for (let i = 0; i <= Cookie.length; i++) {
+    cookieSelector.innerHTML += `<option value=${i}>${
+      cookies[i].name
+    }</option>`;
+  }
+  updateDisplay();
 }
 
 //TODO: this function needs to go through the list of cookies and draw them to cookiesDiv
 // create the cookies as divs with the class name of cookie - see style.css
 // number of chocolatechips needs to be shown on the cookie
 function drawCookies() {
-  cookieDiv.innerHTML = '';
-  for (let cookie of cookies) {
-    //create cookie div
+  cookiesDiv.innerHTML = '';
+  for (let c in cookies) {
     let cd = document.createElement('div');
-    // assigning css to cookie 
-    // converts number to string 
-    // sets cookie colour to assigned colour
-    cd.className = 'Cookie1';
-    cd.innerHTML = cookie.chocolateChipNum.toString(); 
+    cookiesDiv.innerHTML = String(cookies[c].chocolateChipNum);
+    cd.className = 'Cookie1';    
+    
     document.getElementById('cookiesDiv').append(cd);
-
   }
 }
 
@@ -61,8 +68,7 @@ function addChocolateChip() {
 }
 
 function updateDisplay() {
-
   drawCookies();
 }
 
-init()
+init();

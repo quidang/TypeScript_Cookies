@@ -7,6 +7,6 @@ export class SprinkleCookie {
   constructor(name: string) {
     this.name = name;
     this.sprinkleColour = "Brown";
-    this.chocolateChipNum = 0;
-    
+    this.chocolateChipNum = 0;  
+  }
 }
