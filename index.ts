@@ -2,24 +2,25 @@
 import './style.css';
 import { Cookie } from './models/Cookie';
 import { Colours } from './models/CookieEnums';
+import { SprinkleCookie} from './models/SprinkleCookie';
 
 const cookies: Cookie[] = [];
-// connect ts to html input
+const sprinkleCookies: Cookie[] = [];
+
+const cookiesDiv = document.getElementById('cookiesDiv');
+
 const sprinkleCookie = document.getElementById(
   'sprinkleCookie'
 ) as HTMLButtonElement;
-
 const cookieColourInp = document.getElementById(
   'cookieColour-inp'
 ) as HTMLInputElement;
 const cookieSelector = document.getElementById(
   'cookieSelector'
 ) as HTMLSelectElement;
-const cookiesDiv = document.getElementById('cookiesDiv');
 
 const changeColourBtn = document.getElementById('changeColour-btn');
 changeColourBtn.addEventListener('click', changeColour);
-
 const addChocChip = document.getElementById('addChocolateChip-btn');
 addChocChip.addEventListener('click', addChocolateChip);
 
@@ -39,6 +40,17 @@ function init() {
   updateDisplay();
 }
 
+function cookieNames(){
+  cookieSelector.innerHTML='';
+  for (let c in cookies) {
+    // console.log(cookies[c].name);
+    let newOption: HTMLOptionElement = document.createElement('option');
+    newOption.innerHTML = cookies[c].name;
+    newOption.value = String(cookies.indexOf(cookies[c]));
+    cookieSelector.add(newOption);
+  }
+}
+
 //TODO: this function needs to go through the list of cookies and draw them to cookiesDiv
 // create the cookies as divs with the class name of cookie - see style.css
 // number of chocolatechips needs to be shown on the cookie
@@ -48,10 +60,10 @@ function drawCookies() {
     let cd = document.createElement('div');
     cookiesDiv.innerHTML = String(cookies[c].chocolateChipNum);
     cd.className = 'Cookie1';    
-    
     document.getElementById('cookiesDiv').append(cd);
   }
 }
+  updateDisplay();
 
 //TODO: this fuction needs to be triggered by button changeColour-btn
 // upon pressing the button it should change the colour of the cookie selected in the dropdown to the colour typed in the input element (cookieColour-inp)
